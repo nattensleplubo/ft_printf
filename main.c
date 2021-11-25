@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 14:09:14 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/25 16:12:22 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/25 17:30:56 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,31 @@ void	ft_putstr(char *str)
 	}
 }
 
-// ##################### PARSING FUNCTIONS ##################### //
+void	ft_putnbr(int n)
+{
+	char	c;
+
+	c = n % 10 + '0';
+	if (n == -2147483648)
+	{
+		ft_putnbr(n / 10);
+		write(1, "8", 1);
+	}
+	else if (n < 0)
+	{
+		write(1, "-", 1);
+		ft_putnbr(n * -1);
+	}
+	else if (n > 9)
+	{
+		ft_putnbr(n / 10);
+		write(1, &c, 1);
+	}
+	else
+		write(1, &c, 1);
+}
+
+// ##################### FLAGS FUNCTIONS ##################### //
 
 void	ft_print_char(va_list formatParams) // For %c
 {
@@ -46,6 +70,13 @@ void	ft_print_str(va_list formatParams)
 	ft_putstr((char *)va_arg(formatParams, char *));
 }
 
+void	ft_print_decimal(va_list formatParams)
+{
+	ft_putnbr((int)va_arg(formatParams, int));
+}
+
+// ################### PARSING FUNCTION ################### //
+
 void	ft_parse(va_list formatParams, int i, const char *format)
 {
 	i++;
@@ -54,8 +85,8 @@ void	ft_parse(va_list formatParams, int i, const char *format)
 	else if (format[i] == 's')
 		ft_print_str(formatParams);
 	// else if (format[i] == 'p')
-	// else if (format[i] == 'd')
-	// else if (format[i] == 'i')
+	else if (format[i] == 'd' || format[i] == 'i')
+		ft_print_decimal(formatParams);
 	// else if (format[i] == 'u')
 	// else if (format[i] == 'x')
 	// else if (format[i] == '%')
@@ -77,7 +108,8 @@ int	ft_printf(const char *format, ...)
 			ft_parse(formatParams, i, format);
 			i++;
 		}
-		ft_putchar(format[i]);
+		else
+			ft_putchar(format[i]);
 		i++;
 	}
 	return (1);
@@ -85,5 +117,5 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("Une seule string : %s", "Chiasse");
+	ft_printf("%i %i %i", 42, 42 ,42);
 }
