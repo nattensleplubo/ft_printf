@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/26 14:25:05 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/26 14:58:29 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,9 +223,10 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	ft_printf("%x %x %x", 12345, 45657, 7563);
-	ft_printf("\n");
-	printf("%x %x %x", 12345, 45657, 7563);
+	int	i = -5;
+
+	printf("%x\n", i);
+	ft_printf("%x\n", i);
 }
 
-// Ya plus qua regler la return value !
+// Ya plus qua regler la return value, les hexa negatifs !
