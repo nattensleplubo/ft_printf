@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/26 14:58:29 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/26 17:10:53 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,4 +229,4 @@ int	main(void)
 	ft_printf("%x\n", i);
 }
 
-// Ya plus qua regler la return value, les hexa negatifs !
+// Ya plus qua regler la return value, ET PAS BESOIN DE GERER LES HEXA NEGATIFS
