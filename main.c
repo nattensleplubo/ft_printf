@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/25 14:09:14 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/26 13:58:32 by ngobert          ###   ########.fr       */
+/*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
+/*   Updated: 2021/11/26 14:25:05 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,38 @@
 
 //###################### PUTNBR FUNCTIONS ###################### //
 
-static int	ft_len(int n)
-{
-	int	i;
+// static int	ft_len(int n)
+// {
+// 	int	i;
 
-	i = (n < 0);
-	if (n == 0)
-		return (1);
-	while (n != 0)
-	{
-		n = n / 10;
-		i++;
-	}
-	return (i);
-}
+// 	i = (n < 0);
+// 	if (n == 0)
+// 		return (1);
+// 	while (n != 0)
+// 	{
+// 		n = n / 10;
+// 		i++;
+// 	}
+// 	return (i);
+// }
 
 //##################### EXTERNAL FUNCTIONS ##################### //
 
 int	ft_putchar(char c)
 {
-	return (write(1, &c, 1));
+	write(1, &c, 1);
+	return (1);
 }
 
-int	ft_putstr(char *str)
+int	ft_putstr(const char *str)
 {
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while(*str)
 	{
-		write(1, str[i], 1);
+		write(1, str, 1);
+		str++;
 		i++;
 	}
 	return (i);
@@ -101,22 +103,17 @@ int	checkbase(char *str) // FOR PUTNBR BASE
 
 void	ft_putnbr_base(int nb, char *base)
 {
-	int			j;
 	int long	nbr;
 
-	j = 0;
 	nbr = nb;
-	if (checkbase(base) == 0)
-		return ;
-	j = checkbase(base);
 	if (nb < 0)
 	{
 		ft_putchar('-');
 		nbr = nbr * -1;
 	}
-	if (nbr >= j)
-		ft_putnbr_base((nbr / j), base);
-	ft_putchar(base[nbr % j]);
+	if (nbr >= 16)
+		ft_putnbr_base((nbr / 16), base);
+	ft_putchar(base[nbr % 16]);
 }
 
 void	ft_putunsigned(unsigned int n)
@@ -226,9 +223,9 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int i = 0;
-	printf("%d, %p\n", i, NULL);
-	ft_printf("%d, %p\n", i, NULL);
+	ft_printf("%x %x %x", 12345, 45657, 7563);
+	ft_printf("\n");
+	printf("%x %x %x", 12345, 45657, 7563);
 }
 
 // Ya plus qua regler la return value !
