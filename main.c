@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/28 12:01:32 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/28 15:25:03 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,32 @@ int	ft_len_unsigned(unsigned int n)
 		i++;
 	}
 	return (i);
+}
+
+int	ft_hex_len(unsigned	int num)
+{
+	int	len;
+
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num = num / 16;
+	}
+	return (len);
+}
+
+int	ft_ptr_len(unsigned long num)
+{
+	int	len;
+
+	len = 0;
+	while (num != 0)
+	{
+		len++;
+		num = num / 16;
+	}
+	return (len);
 }
 
 //##################### EXTERNAL FUNCTIONS ##################### //
@@ -153,9 +179,13 @@ int	ft_print_decimal(va_list formatParams)
 	return (ft_len(i));
 }
 
-void	ft_putnbr_hex(va_list formatParams, char *base)
+int	ft_putnbr_hex(va_list formatParams, char *base)
 {
-	ft_putnbr_base((int)va_arg(formatParams, int), base);
+	int	i;
+
+	i = (int)va_arg(formatParams, int);
+	ft_putnbr_base(i, base);
+	return (ft_hex_len(i));
 }
 
 int	ft_print_unsigned(va_list formatParams)
@@ -167,10 +197,14 @@ int	ft_print_unsigned(va_list formatParams)
 	return (ft_len_unsigned(i));
 }
 
-void	ft_print_pointer(va_list formatParams)
+int	ft_print_pointer(va_list formatParams)
 {
+	unsigned long	i;
+
+	i = (unsigned long)va_arg(formatParams, unsigned long);
 	ft_putstr("0x");
-	ft_putpointer((unsigned long)va_arg(formatParams, unsigned long), "0123456789abcdef");
+	ft_putpointer(i, "0123456789abcdef");
+	return (ft_ptr_len(i));
 }
 
 // ################### PARSING FUNCTION ################### //
@@ -185,16 +219,16 @@ int	ft_parse(va_list formatParams, int i, const char *format)
 		retVal += ft_print_char(formatParams);
 	else if (format[i] == 's')
 		retVal += ft_print_str(formatParams);
-	// else if (format[i] == 'p')
-	// 	ft_print_pointer(formatParams);
+	else if (format[i] == 'p')
+		retVal += 2 + ft_print_pointer(formatParams);
 	else if (format[i] == 'd' || format[i] == 'i')
 		retVal += ft_print_decimal(formatParams);
 	else if (format[i] == 'u')
 		retVal += ft_print_unsigned(formatParams);
-	// else if (format[i] == 'x')
-	// 	retVal += ft_putnbr_hex(formatParams, "0123456789abcdef");
-	// else if (format[i] == 'X')
-	// 	retVal += ft_putnbr_hex(formatParams, "0123456789ABCDEF");
+	else if (format[i] == 'x')
+		retVal += ft_putnbr_hex(formatParams, "0123456789abcdef");
+	else if (format[i] == 'X')
+		retVal += ft_putnbr_hex(formatParams, "0123456789ABCDEF");
 	else if (format[i] == '%')
 		retVal += ft_putchar('%');
 	return (retVal - 2);
@@ -225,14 +259,6 @@ int	ft_printf(const char *format, ...)
 		retVal++;
 	}
 	return (retVal); //!\\ Ne pas oublier la return value (Le nombre de char affichés) !!! write return le nb de char ecrit !! pas mal
-}
-
-int	main(void)
-{
-	int i = printf("%u, %u, %u\n", 12, 42, 56345);
-	int j = ft_printf("%u, %u, %u\n", 12, 42, 56345);
-
-	printf("Vrai : %d\nMoi  : %d\n", i, j);
 }
 
 // Ya plus qua regler la return value, ET PAS BESOIN DE GERER LES HEXA NEGATIFS
