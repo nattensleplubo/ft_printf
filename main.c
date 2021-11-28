@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/27 15:35:13 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/28 11:51:37 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_putchar(char c)
 	return (write(1, &c, 1));
 }
 
-int	ft_putstr(const char *str)
+int	ft_putstr(char *str)
 {
 	int	i;
 
@@ -129,10 +129,13 @@ int	ft_print_str(va_list formatParams)
 	i = ft_putstr((char *)va_arg(formatParams, char *));
 	return (i);
 }
-
-void	ft_print_decimal(va_list formatParams)
+int	ft_print_decimal(va_list formatParams)
 {
-	ft_putnbr((int)va_arg(formatParams, int));
+	int	i;
+
+	i = (int)va_arg(formatParams, int);
+	ft_putnbr(i);
+	return (ft_len(i));
 }
 
 void	ft_putnbr_hex(va_list formatParams, char *base)
@@ -163,10 +166,10 @@ int	ft_parse(va_list formatParams, int i, const char *format)
 		retVal += ft_print_char(formatParams);
 	else if (format[i] == 's')
 		retVal += ft_print_str(formatParams);
-	else if (format[i] == 'p')
-		ft_print_pointer(formatParams);
+	// else if (format[i] == 'p')
+	// 	ft_print_pointer(formatParams);
 	else if (format[i] == 'd' || format[i] == 'i')
-		ft_print_decimal(formatParams);
+		retVal += ft_print_decimal(formatParams);
 	// else if (format[i] == 'u')
 	// 	retVal += ft_print_unsigned(formatParams);
 	// else if (format[i] == 'x')
@@ -207,13 +210,10 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int a = 4589;
-	int b = 12098;
-	int c = 345098;
-	int d = 1;
+	int i = printf("%d, %d, %d\n", 12, 42, 56345);
+	int j = ft_printf("%d, %d, %d\n", 12, 42, 56345);
 
-	ft_printf("%c, %d", 'c', 42);
-
+	printf("Vrai : %d\nMoi  : %d\n", i, j);
 }
 
 // Ya plus qua regler la return value, ET PAS BESOIN DE GERER LES HEXA NEGATIFS
