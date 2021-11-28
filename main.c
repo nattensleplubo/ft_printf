@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/28 11:51:37 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/28 12:01:32 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 //###################### PUTNBR FUNCTIONS ###################### //
 
 int	ft_len(int n)
+{
+	int	i;
+
+	i = (n < 0);
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+int	ft_len_unsigned(unsigned int n)
 {
 	int	i;
 
@@ -143,9 +158,13 @@ void	ft_putnbr_hex(va_list formatParams, char *base)
 	ft_putnbr_base((int)va_arg(formatParams, int), base);
 }
 
-void	ft_print_unsigned(va_list formatParams)
+int	ft_print_unsigned(va_list formatParams)
 {
-	ft_putunsigned((unsigned int)va_arg(formatParams, unsigned int));
+	int	i;
+
+	i = (unsigned int)va_arg(formatParams, unsigned int);
+	ft_putunsigned(i);
+	return (ft_len_unsigned(i));
 }
 
 void	ft_print_pointer(va_list formatParams)
@@ -170,8 +189,8 @@ int	ft_parse(va_list formatParams, int i, const char *format)
 	// 	ft_print_pointer(formatParams);
 	else if (format[i] == 'd' || format[i] == 'i')
 		retVal += ft_print_decimal(formatParams);
-	// else if (format[i] == 'u')
-	// 	retVal += ft_print_unsigned(formatParams);
+	else if (format[i] == 'u')
+		retVal += ft_print_unsigned(formatParams);
 	// else if (format[i] == 'x')
 	// 	retVal += ft_putnbr_hex(formatParams, "0123456789abcdef");
 	// else if (format[i] == 'X')
@@ -210,8 +229,8 @@ int	ft_printf(const char *format, ...)
 
 int	main(void)
 {
-	int i = printf("%d, %d, %d\n", 12, 42, 56345);
-	int j = ft_printf("%d, %d, %d\n", 12, 42, 56345);
+	int i = printf("%u, %u, %u\n", 12, 42, 56345);
+	int j = ft_printf("%u, %u, %u\n", 12, 42, 56345);
 
 	printf("Vrai : %d\nMoi  : %d\n", i, j);
 }
