@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/26 17:10:53 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/27 15:35:13 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,26 @@
 
 //###################### PUTNBR FUNCTIONS ###################### //
 
-// static int	ft_len(int n)
-// {
-// 	int	i;
+int	ft_len(int n)
+{
+	int	i;
 
-// 	i = (n < 0);
-// 	if (n == 0)
-// 		return (1);
-// 	while (n != 0)
-// 	{
-// 		n = n / 10;
-// 		i++;
-// 	}
-// 	return (i);
-// }
+	i = (n < 0);
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
 
 //##################### EXTERNAL FUNCTIONS ##################### //
 
 int	ft_putchar(char c)
 {
-	write(1, &c, 1);
-	return (1);
+	return (write(1, &c, 1));
 }
 
 int	ft_putstr(const char *str)
@@ -73,32 +72,6 @@ void	ft_putnbr(int n)
 	}
 	else
 		write(1, &c, 1);
-}
-
-int	checkbase(char *str) // FOR PUTNBR BASE
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '-' || str[i] == '+')
-			return (0);
-		if ((str[i] > 06 && str[i] < 14) || str[i] == 32)
-			return (0);
-		j = i + 1;
-		while (str[j])
-		{
-			if (str[i] == str[j])
-				return (0);
-			j++;
-		}
-		i++;
-	}
-	if (i < 2)
-		return (0);
-	return (i);
 }
 
 void	ft_putnbr_base(int nb, char *base)
@@ -147,13 +120,14 @@ int	ft_print_char(va_list formatParams) // For %c
 	char	c;
 
 	c = (char)va_arg(formatParams, int);
-	ft_putchar(c);
-	return (1);
+	return (ft_putchar(c));
 }
 
 int	ft_print_str(va_list formatParams)
 {
-	return (ft_putstr((char *)va_arg(formatParams, char *)));
+	int i;
+	i = ft_putstr((char *)va_arg(formatParams, char *));
+	return (i);
 }
 
 void	ft_print_decimal(va_list formatParams)
@@ -161,9 +135,9 @@ void	ft_print_decimal(va_list formatParams)
 	ft_putnbr((int)va_arg(formatParams, int));
 }
 
-void	ft_putnbr_hex(va_list formatParams)
+void	ft_putnbr_hex(va_list formatParams, char *base)
 {
-	ft_putnbr_base((int)va_arg(formatParams, int), "0123456789abcdef");
+	ft_putnbr_base((int)va_arg(formatParams, int), base);
 }
 
 void	ft_print_unsigned(va_list formatParams)
@@ -179,23 +153,29 @@ void	ft_print_pointer(va_list formatParams)
 
 // ################### PARSING FUNCTION ################### //
 
-void	ft_parse(va_list formatParams, int i, const char *format)
+int	ft_parse(va_list formatParams, int i, const char *format)
 {
+	int	retVal;
+
+	retVal = 0;
 	i++;
 	if (format[i] == 'c')
-		ft_print_char(formatParams);
+		retVal += ft_print_char(formatParams);
 	else if (format[i] == 's')
-		ft_print_str(formatParams);
+		retVal += ft_print_str(formatParams);
 	else if (format[i] == 'p')
 		ft_print_pointer(formatParams);
 	else if (format[i] == 'd' || format[i] == 'i')
 		ft_print_decimal(formatParams);
-	else if (format[i] == 'u')
-		ft_print_unsigned(formatParams);
-	else if (format[i] == 'x')
-		ft_putnbr_hex(formatParams);
+	// else if (format[i] == 'u')
+	// 	retVal += ft_print_unsigned(formatParams);
+	// else if (format[i] == 'x')
+	// 	retVal += ft_putnbr_hex(formatParams, "0123456789abcdef");
+	// else if (format[i] == 'X')
+	// 	retVal += ft_putnbr_hex(formatParams, "0123456789ABCDEF");
 	else if (format[i] == '%')
-		ft_putchar('%');
+		retVal += ft_putchar('%');
+	return (retVal - 2);
 }
 
 // ##################### MAIN FUNCTION ##################### //
@@ -204,29 +184,36 @@ int	ft_printf(const char *format, ...)
 {
 	va_list		formatParams;
 	int			i;
+	int			retVal;
 	va_start	(formatParams, format);
 
 	i = 0;
+	retVal = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			ft_parse(formatParams, i, format);
+			retVal += ft_parse(formatParams, i, format);
 			i++;
+			retVal++;
 		}
 		else
 			ft_putchar(format[i]);
 		i++;
+		retVal++;
 	}
-	return (1); //!\\ Ne pas oublier la return value (Le nombre de char affichés) !!! write return le nb de char ecrit !! pas mal
+	return (retVal); //!\\ Ne pas oublier la return value (Le nombre de char affichés) !!! write return le nb de char ecrit !! pas mal
 }
 
 int	main(void)
 {
-	int	i = -5;
+	int a = 4589;
+	int b = 12098;
+	int c = 345098;
+	int d = 1;
 
-	printf("%x\n", i);
-	ft_printf("%x\n", i);
+	ft_printf("%c, %d", 'c', 42);
+
 }
 
 // Ya plus qua regler la return value, ET PAS BESOIN DE GERER LES HEXA NEGATIFS

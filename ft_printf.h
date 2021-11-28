@@ -15,9 +15,9 @@ void	ft_putunsigned(unsigned int n);
 int		ft_print_char(va_list formatParams);
 int		ft_print_str(va_list formatParams);
 void	ft_print_decimal(va_list formatParams);
-void	ft_putnbr_hex(va_list formatParams);
+void	ft_putnbr_hex(va_list formatParams, char *base);
 void	ft_print_unsigned(va_list formatParams);
-void	ft_parse(va_list formatParams, int i, const char *format);
+int		ft_parse(va_list formatParams, int i, const char *format);
 
 int		ft_printf(const char *format, ...);
 
