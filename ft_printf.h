@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:45:10 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:45:58 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 15:41:35 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_ptr_len(unsigned long num);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
 void	ft_putnbr(int n);
-void	ft_putnbr_base(int nb, char *base);
+void	ft_putnbr_base(unsigned int nb, char *base);
 void	ft_putunsigned(unsigned int n);
 void	ft_putpointer(unsigned long nb, char *base);
 int		ft_print_char(va_list formatParams);

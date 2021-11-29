@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:15:14 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:44:21 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 15:41:47 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	ft_putnbr(int n)
 		write(1, &c, 1);
 }
 
-void	ft_putnbr_base(int nb, char *base)
+void	ft_putnbr_base(unsigned int nb, char *base)
 {
-	int long	nbr;
+	unsigned int	nbr;
 
 	nbr = nb;
 	if (nb < 0)

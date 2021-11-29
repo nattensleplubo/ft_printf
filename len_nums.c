@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:13:39 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:40:48 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 15:22:01 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	ft_hex_len(unsigned	int num)
 	int	len;
 
 	len = 0;
+	if (num == 0)
+		return (1);
 	while (num != 0)
 	{
 		len++;

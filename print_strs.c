@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:11:04 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:44:58 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 15:45:13 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ int	ft_print_char(va_list formatParams)
 
 int	ft_print_str(va_list formatParams)
 {
-	int	i;
+	int		i;
+	char	*str;
 
-	if (!((char *)va_arg(formatParams, char *)))
+	str = (char *)va_arg(formatParams, char *);
+	if (!(str))
 	{
 		ft_putstr("(null)");
 		return (6);
 	}
-	i = ft_putstr((char *)va_arg(formatParams, char *));
+	i = ft_putstr(str);
 	return (i);
 }
