@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:15:45 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 13:12:42 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,67 +14,65 @@
 
 int	ft_parse(va_list formatParams, int i, const char *format)
 {
-	int	retVal;
+	int	ret_val;
 
-	retVal = 0;
+	ret_val = 0;
 	i++;
 	if (format[i] == 'c')
-		retVal += ft_print_char(formatParams);
+		ret_val += ft_print_char(formatParams);
 	else if (format[i] == 's')
-		retVal += ft_print_str(formatParams);
+		ret_val += ft_print_str(formatParams);
 	else if (format[i] == 'p')
-		retVal += 2 + ft_print_pointer(formatParams);
+		ret_val += 2 + ft_print_pointer(formatParams);
 	else if (format[i] == 'd' || format[i] == 'i')
-		retVal += ft_print_decimal(formatParams);
+		ret_val += ft_print_decimal(formatParams);
 	else if (format[i] == 'u')
-		retVal += ft_print_unsigned(formatParams);
+		ret_val += ft_print_unsigned(formatParams);
 	else if (format[i] == 'x')
-		retVal += ft_putnbr_hex(formatParams, "0123456789abcdef");
+		ret_val += ft_putnbr_hex(formatParams, "0123456789abcdef");
 	else if (format[i] == 'X')
-		retVal += ft_putnbr_hex(formatParams, "0123456789ABCDEF");
+		ret_val += ft_putnbr_hex(formatParams, "0123456789ABCDEF");
 	else if (format[i] == '%')
-		retVal += ft_putchar('%');
-	return (retVal - 2);
+		ret_val += ft_putchar('%');
+	return (ret_val - 2);
 }
 
 // ##################### MAIN FUNCTION ##################### //
 
 int	ft_printf(const char *format, ...)
 {
-	va_list		formatParams;
+	va_list		format_params;
 	int			i;
-	int			retVal;
-	va_start	(formatParams, format);
+	int			ret_val;
 
+	va_start (format_params, format);
 	i = 0;
-	retVal = 0;
+	ret_val = 0;
 	while (format[i])
 	{
 		if (format[i] == '%')
 		{
-			retVal += ft_parse(formatParams, i, format);
+			ret_val += ft_parse(format_params, i, format);
 			i++;
-			retVal++;
+			ret_val++;
 		}
 		else
 			ft_putchar(format[i]);
 		i++;
-		retVal++;
+		ret_val++;
 	}
-	return (retVal);
+	return (ret_val);
 }
 
-int	main(void)
-{
-	int	i;
-	int j;
-	// int	d = 42;
-	// unsigned int u = 1337;
-	
-	i = printf("%p", NULL);
-	printf("\n");
-	j = ft_printf("%p", NULL);
-	printf("\n");
+// int	main(void)
+// {
+// 	int	i;
+// 	int j;
 
-	ft_printf("Vrai : %d\nMoi  : %d\n", i, j);
-}
+// 	i = printf("%p, Coucou les copains", NULL);
+// 	printf("\n");
+// 	j = ft_printf("%p, Coucou les copains", NULL);
+// 	printf("\n");
+
+// 	ft_printf("Vrai : %d\nMoi  : %d\n", i, j);
+// }

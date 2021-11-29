@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 12:11:04 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 12:11:43 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 12:44:58 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	ft_putstr(char *str)
 	int	i;
 
 	i = 0;
-	while(*str)
+	while (*str)
 	{
 		write(1, str, 1);
 		str++;
@@ -41,7 +41,7 @@ int	ft_print_char(va_list formatParams)
 
 int	ft_print_str(va_list formatParams)
 {
-	int i;
+	int	i;
 
 	if (!((char *)va_arg(formatParams, char *)))
 	{
