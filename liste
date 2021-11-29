@@ -1,8 +1,8 @@
 Liste de truc a gerer :
 
-Les pointeurs null,
-Tout les cas ou il faut afficher (null),
-La valeurs de retour en cas de (null),
-Tout foutre dans des fichier different,
-Tout foutre a la norme,
+| | Les pointeurs null,
+| | Tout les cas ou il faut afficher (null),
+| | La valeurs de retour en cas de (null),
+| | Tout foutre dans des fichier different,
+| | Tout foutre a la norme,
 
