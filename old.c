@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 13:52:34 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 13:55:14 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 14:00:15 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,12 @@ int	ft_print_char(va_list formatParams) // For %c
 int	ft_print_str(va_list formatParams)
 {
 	int i;
+
+	if (!((char *)va_arg(formatParams, char *)))
+	{
+		ft_putstr("(null)");
+		return (6);
+	}
 	i = ft_putstr((char *)va_arg(formatParams, char *));
 	return (i);
 }
@@ -204,7 +210,10 @@ int	ft_print_pointer(va_list formatParams)
 	i = (unsigned long)va_arg(formatParams, unsigned long);
 	ft_putstr("0x");
 	ft_putpointer(i, "0123456789abcdef");
-	return (ft_ptr_len(i));
+	if (!i)
+		return (ft_ptr_len(i) + 1);
+	else
+		return (ft_ptr_len(i));
 }
 
 // ################### PARSING FUNCTION ################### //
@@ -261,7 +270,17 @@ int	ft_printf(const char *format, ...)
 	return (retVal);
 }
 
-// int	main(void)
-// {
-// 	ft_printf("%s %s %s", "Coucou", "les", "copains");
-// }
+int	main(void)
+{
+	int	i;
+	int j;
+	// int	d = 42;
+	// unsigned int u = 1337;
+	
+	i = printf("%p", NULL);
+	printf("\n");
+	j = ft_printf("%p", NULL);
+	printf("\n");
+
+	ft_printf("Vrai : %d\nMoi  : %d\n", i, j);
+}
