@@ -6,7 +6,7 @@
 /*   By: ngobert <ngobert@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/26 14:08:42 by ngobert           #+#    #+#             */
-/*   Updated: 2021/11/29 15:38:33 by ngobert          ###   ########.fr       */
+/*   Updated: 2021/11/29 16:27:18 by ngobert          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,3 @@ int	ft_printf(const char *format, ...)
 	}
 	return (ret_val);
 }
-
-// int	main(void)
-// {
-// 	int	i;
-// 	int j;
-
-// 	i = printf("%x", -0);
-// 	printf("\n");
-// 	j = ft_printf("%x", -0);
-// 	printf("\n");
-
-// 	ft_printf("Vrai : %d\nMoi  : %d\n", i, j);
-// }
